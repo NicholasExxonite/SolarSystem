@@ -19,7 +19,7 @@ public class SolarSystem extends JFrame
 	private ArrayList<Planet> planets = new ArrayList<Planet>();
 
 	/**
-	 * Create a view of the Solar System.
+	 * Create a view of the Solar SolSystem.
 	 * Once an instance of the SolarSystem class is created,
 	 * a window of the appropriate size is displayed, and
 	 * objects can be displayed in the solar system
@@ -32,7 +32,7 @@ public class SolarSystem extends JFrame
 		this.width = width;
 		this.height = height;
 
-		this.setTitle("The Solar System");
+		this.setTitle("The Solar SolSystem");
 		this.setSize(width, height);
 		this.setBackground(Color.BLACK);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -130,17 +130,17 @@ public class SolarSystem extends JFrame
 //		{
 //			if (things.size() > 1000)
 //			{
-//				System.out.println("\n\n");
-//				System.out.println(" ********************************************************* ");
-//				System.out.println(" ***** Only 1000 Entities Supported per Solar System ***** ");
-//				System.out.println(" ********************************************************* ");
-//				System.out.println("\n\n");
-//				System.out.println("If you are't trying to add this many things");
-//				System.out.println("to your SolarSystem, then you have probably");
-//				System.out.println("forgotten to call the finishedDrawing() method");
-//				System.out.println("See the JavaDOC documentation for more information");
-//				System.out.println("\n-- Joe");
-//				System.out.println("\n\n");
+//				SolSystem.out.println("\n\n");
+//				SolSystem.out.println(" ********************************************************* ");
+//				SolSystem.out.println(" ***** Only 1000 Entities Supported per Solar SolSystem ***** ");
+//				SolSystem.out.println(" ********************************************************* ");
+//				SolSystem.out.println("\n\n");
+//				SolSystem.out.println("If you are't trying to add this many things");
+//				SolSystem.out.println("to your SolarSystem, then you have probably");
+//				SolSystem.out.println("forgotten to call the finishedDrawing() method");
+//				SolSystem.out.println("See the JavaDOC documentation for more information");
+//				SolSystem.out.println("\n-- Joe");
+//				SolSystem.out.println("\n\n");
 //
 //				this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 //			}
@@ -180,8 +180,28 @@ public class SolarSystem extends JFrame
 
 		synchronized (this)
 		{
-			Planet p = new Planet((int)x, (int)y, (int)diameter, (int)velocity, colour);
-			planets.add(p);
+			if (planets.size() >= 2)
+			{
+//				SolSystem.out.println("\n\n");
+//				SolSystem.out.println(" ********************************************************* ");
+//				SolSystem.out.println(" ***** Only 1000 Entities Supported per Solar SolSystem ***** ");
+//				SolSystem.out.println(" ********************************************************* ");
+//				SolSystem.out.println("\n\n");
+//				SolSystem.out.println("If you are't trying to add this many things");
+//				SolSystem.out.println("to your SolarSystem, then you have probably");
+//				SolSystem.out.println("forgotten to call the finishedDrawing() method");
+//				SolSystem.out.println("See the JavaDOC documentation for more information");
+//				SolSystem.out.println("\n-- Joe");
+//				SolSystem.out.println("\n\n");
+
+				this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+			}
+			else
+			{
+				Planet p = new Planet((int) x, (int) y, (int) diameter, velocity, (int) angle, colour);
+				planets.add(p);
+			}
+			//p.move();
 		}
 	}
 	/**
@@ -212,19 +232,19 @@ public class SolarSystem extends JFrame
 
 		synchronized (this)
 		{
-			if (things.size() > 1000)
+			if (planets.size() > 1000)
 			{
-				System.out.println("\n\n");
-				System.out.println(" ********************************************************* ");
-				System.out.println(" ***** Only 1000 Entities Supported per Solar System ***** ");
-				System.out.println(" ********************************************************* ");
-				System.out.println("\n\n");
-				System.out.println("If you are't trying to add this many things");
-				System.out.println("to your SolarSystem, then you have probably");
-				System.out.println("forgotten to call the finishedDrawing() method");
-				System.out.println("See the JavaDOC documentation for more information");
-				System.out.println("\n-- Joe");
-				System.out.println("\n\n");
+//				SolSystem.out.println("\n\n");
+//				SolSystem.out.println(" ******************************************************** ");
+//				SolSystem.out.println(" ***** Only 1000 Entities Supported per Solar SolSystem ***** ");
+//				SolSystem.out.println(" ********************************************************* ");
+//				SolSystem.out.println("\n\n");
+//				SolSystem.out.println("If you are't trying to add this many things");
+//				SolSystem.out.println("to your SolarSystem, then you have probably");
+//				SolSystem.out.println("forgotten to call the finishedDrawing() method");
+//				SolSystem.out.println("See the JavaDOC documentation for more information");
+//				SolSystem.out.println("\n-- Joe");
+//				SolSystem.out.println("\n\n");
 
 				this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 			}
@@ -250,11 +270,12 @@ public class SolarSystem extends JFrame
 			synchronized (this)
 			{
 				things.clear();
+				planets.clear();
 			}
 		}
 		catch (Exception e) { }
 	}
-	
+
 	private class SolarObject 
 	{
 		public int x;
@@ -274,21 +295,39 @@ public class SolarSystem extends JFrame
 	{
 		public int x;
 		public int y;
+		private int angle;
 		private int diameter;
 		private int velocity;
 		private Color col;
 
-		public Planet(int x, int y, int diameter, int velocity, Color col)
+		public Planet(int x, int y, int diameter, int velocity, int angle, Color col)
 		{
 			this.x = x;
 			this.y = y;
 			this.diameter = diameter;
 			this.velocity = velocity;
 			this.col = col;
+			this.angle = angle;
+
+
+		}
+
+		public void move(){
+			while(this.angle <= 360)
+			{
+
+				this.angle++;
+
+			}
+
 		}
 	}
 
-	private class Sun
+	interface SolarBody{
+		public void move();
+	}
+
+	private class Sun implements SolarBody
 	{
 		public int x = 0;
 		public int y = 0;
@@ -302,6 +341,11 @@ public class SolarSystem extends JFrame
 			this.y = y;
 			this.diameter = diameter;
 			this.col = col;
+
+		}
+
+		public void move(){
+
 		}
 	}
 
